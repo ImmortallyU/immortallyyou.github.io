@@ -27,9 +27,15 @@ nav {
 .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
 .nav-links a { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; cursor: pointer; transition: color 0.2s; }
 .nav-links a:hover { color: var(--rose); }
+.nav-right { display: flex; gap: 0.75rem; align-items: center; }
 .cart-btn { position: relative; background: none; border: 1px solid var(--rose); padding: 8px 16px; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); transition: all 0.2s; }
 .cart-btn:hover { background: var(--rose); color: var(--cream); }
 .cart-count { position: absolute; top: -8px; right: -8px; background: var(--rose); color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+.login-btn { background: none; border: 1px solid var(--gold); padding: 8px 16px; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); transition: all 0.2s; }
+.login-btn:hover { background: var(--gold); color: var(--cream); }
+.user-greeting { font-size: 12px; color: var(--text-mid); letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.5rem; }
+.logout-link { font-size: 11px; color: var(--rose); cursor: pointer; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: underline; }
+.admin-badge { background: var(--text-dark); color: var(--cream); font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 3px 8px; }
 .page { display: none; }
 .page.active { display: block; }
 .hero { background: var(--rose-pale); padding: 6rem 2rem; text-align: center; }
@@ -61,19 +67,25 @@ nav {
 .filter-btn { padding: 8px 18px; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--cream-dark); background: var(--cream); color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
 .filter-btn.active, .filter-btn:hover { background: var(--rose); color: var(--cream); border-color: var(--rose); }
 .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
-.product-card { background: var(--cream); cursor: pointer; transition: transform 0.2s; border: 1px solid var(--cream-dark); }
-.product-card:hover { transform: translateY(-3px); }
-.product-img { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 56px; position: relative; }
+.product-card { background: var(--cream); transition: transform 0.2s; border: 1px solid var(--cream-dark); position: relative; }
+.product-card:not(.sold-out):hover { transform: translateY(-3px); }
+.product-card.sold-out { opacity: 0.7; }
+.product-img { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 56px; position: relative; cursor: pointer; }
 .product-badge { position: absolute; top: 10px; left: 10px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; color: white; }
+.sold-out-overlay { position: absolute; inset: 0; background: rgba(253,246,239,0.75); display: flex; align-items: center; justify-content: center; }
+.sold-out-stamp { background: var(--text-dark); color: var(--cream); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; padding: 8px 20px; transform: rotate(-15deg); font-family: 'Jost', sans-serif; }
 .product-info { padding: 1rem 1.25rem; border-top: 1px solid var(--cream-dark); }
-.product-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--text-dark); margin-bottom: 4px; }
+.product-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--text-dark); margin-bottom: 4px; cursor: pointer; }
 .product-collection { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
 .product-price { font-size: 15px; color: var(--rose); font-weight: 500; margin-bottom: 12px; }
-.product-actions { display: flex; gap: 8px; }
+.product-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .add-cart-btn { flex: 1; padding: 8px; background: transparent; border: 1px solid var(--rose); color: var(--rose); font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
 .add-cart-btn:hover { background: var(--rose); color: var(--cream); }
 .buy-btn { flex: 1; padding: 8px; background: var(--rose); border: 1px solid var(--rose); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
 .buy-btn:hover { background: var(--text-mid); border-color: var(--text-mid); }
+.sold-out-btn { flex: 1; padding: 8px; background: var(--cream-dark); border: 1px solid var(--cream-dark); color: var(--text-light); font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: not-allowed; }
+.admin-toggle-btn { width: 100%; padding: 6px; background: var(--text-dark); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: none; margin-top: 6px; transition: background 0.2s; }
+.admin-toggle-btn:hover { background: var(--rose); }
 .about-inner { max-width: 600px; text-align: center; margin: 0 auto; }
 .about-inner p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; font-style: italic; line-height: 1.8; color: var(--text-mid); margin-bottom: 1.5rem; }
 .about-sig { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); }
@@ -87,6 +99,8 @@ nav {
 .form-group textarea { height: 120px; }
 .submit-btn { display: block; width: 100%; padding: 14px; background: var(--rose); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s; margin-top: 1.5rem; }
 .submit-btn:hover { background: var(--text-mid); }
+.inner-page { max-width: 500px; margin: 0 auto; padding: 4rem 2rem; min-height: 70vh; }
+.inner-page h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; margin-bottom: 0.5rem; }
 .cart-page { max-width: 700px; margin: 0 auto; padding: 4rem 2rem; min-height: 60vh; }
 .cart-page h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; margin-bottom: 0.5rem; }
 .cart-empty { text-align: center; padding: 4rem 2rem; color: var(--text-light); }
@@ -124,6 +138,15 @@ nav {
 .order-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 500; padding-top: 12px; color: var(--text-dark); }
 .checkout-form { display: none; }
 .checkout-form.active { display: block; }
+.login-page { max-width: 420px; margin: 0 auto; padding: 4rem 2rem; min-height: 70vh; }
+.login-page h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; margin-bottom: 0.5rem; }
+.login-tabs { display: flex; gap: 0; margin-bottom: 2rem; margin-top: 1.5rem; }
+.login-tab { flex: 1; padding: 12px; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--cream-dark); background: var(--cream); color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
+.login-tab.active { background: var(--rose); color: var(--cream); border-color: var(--rose); }
+.login-form { display: none; }
+.login-form.active { display: block; }
+.welcome-banner { background: var(--rose-pale); border: 1px solid var(--rose-light); padding: 1rem 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+.welcome-banner p { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--text-mid); }
 footer { background: var(--text-dark); color: var(--cream-dark); text-align: center; padding: 3rem 2rem; }
 .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--rose-light); }
 .footer-motto { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: var(--text-light); margin-bottom: 1rem; }
@@ -141,6 +164,8 @@ footer { background: var(--text-dark); color: var(--cream-dark); text-align: cen
 .modal-btns button { flex: 1; }
 .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--text-dark); color: var(--cream); padding: 1rem 1.5rem; font-size: 13px; letter-spacing: 0.05em; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; z-index: 999; }
 .toast.show { opacity: 1; transform: translateY(0); }
+.error-msg { color: #c0392b; font-size: 12px; margin-top: 0.5rem; letter-spacing: 0.05em; display: none; }
+.error-msg.show { display: block; }
 @media (max-width: 600px) {
   .hero-title { font-size: 36px; }
   .collections-grid, .checkout-options { grid-template-columns: 1fr 1fr; }
@@ -161,13 +186,17 @@ footer { background: var(--text-dark); color: var(--cream-dark); text-align: cen
     <li><a onclick="showPage('main'); goto('shop')">Shop</a></li>
     <li><a onclick="showPage('main'); goto('about')">About</a></li>
     <li><a onclick="showPage('main'); goto('contact')">Contact</a></li>
-    <li><button class="cart-btn" onclick="showPage('cart'); renderCart();">Cart <span class="cart-count" id="cart-count">0</span></button></li>
   </ul>
+  <div class="nav-right">
+    <div id="nav-user-area"></div>
+    <button class="cart-btn" onclick="showPage('cart'); renderCart();">Cart <span class="cart-count" id="cart-count">0</span></button>
+  </div>
 </nav>
 
 <div id="page-main" class="page active">
   <section id="home">
     <div class="hero">
+      <div id="welcome-banner-hero"></div>
       <p class="hero-eyebrow">Handcrafted with love</p>
       <h1 class="hero-title">Immortally <em>You</em></h1>
       <p class="hero-motto">"Your story is one of a kind. So is every piece."</p>
@@ -264,7 +293,41 @@ footer { background: var(--text-dark); color: var(--cream-dark); text-align: cen
       <button class="submit-btn" onclick="submitForm()">Send Message</button>
     </div>
   </section>
+  <footer>
+    <div class="footer-logo">Immortally You</div>
+    <div class="footer-motto">"Your story is one of a kind. So is every piece."</div>
+    <p class="footer-text">Handcrafted jewelry made with love · Phoenix · 2025</p>
+  </footer>
+</div>
 
+<div id="page-login" class="page">
+  <div class="login-page">
+    <p class="section-eyebrow" style="margin-bottom:0.5rem;">Welcome</p>
+    <h2>Sign In</h2>
+    <div class="section-line" style="margin: 1rem 0 0;"></div>
+    <div class="login-tabs">
+      <button class="login-tab active" onclick="switchLoginTab('signin')">Sign In</button>
+      <button class="login-tab" onclick="switchLoginTab('signup')">Create Account</button>
+    </div>
+
+    <div class="login-form active" id="form-signin">
+      <div class="form-group"><label>Username</label><input type="text" id="si-username" placeholder="Your username"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="si-password" placeholder="Your password"></div>
+      <p class="error-msg" id="si-error">Incorrect username or password.</p>
+      <button class="submit-btn" onclick="doSignIn()">Sign In</button>
+      <p style="text-align:center; margin-top:1rem; font-size:12px; color:var(--text-light);">Don't have an account? <span style="color:var(--rose); cursor:pointer;" onclick="switchLoginTab('signup')">Create one</span></p>
+    </div>
+
+    <div class="login-form" id="form-signup">
+      <div class="form-group"><label>Your Name</label><input type="text" id="su-name" placeholder="First name"></div>
+      <div class="form-group"><label>Username</label><input type="text" id="su-username" placeholder="Choose a username"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="su-password" placeholder="Choose a password"></div>
+      <div class="form-group"><label>Confirm Password</label><input type="password" id="su-confirm" placeholder="Confirm password"></div>
+      <p class="error-msg" id="su-error">Passwords do not match.</p>
+      <button class="submit-btn" onclick="doSignUp()">Create Account</button>
+      <p style="text-align:center; margin-top:1rem; font-size:12px; color:var(--text-light);">Already have an account? <span style="color:var(--rose); cursor:pointer;" onclick="switchLoginTab('signin')">Sign in</span></p>
+    </div>
+  </div>
   <footer>
     <div class="footer-logo">Immortally You</div>
     <div class="footer-motto">"Your story is one of a kind. So is every piece."</div>
@@ -274,9 +337,9 @@ footer { background: var(--text-dark); color: var(--cream-dark); text-align: cen
 
 <div id="page-cart" class="page">
   <div class="cart-page">
-    <p class="section-eyebrow" style="margin-bottom: 0.5rem;">Your selections</p>
+    <p class="section-eyebrow" style="margin-bottom:0.5rem;">Your selections</p>
     <h2>Shopping Cart</h2>
-    <div class="section-line" style="margin: 1rem 0 2rem;"></div>
+    <div class="section-line" style="margin:1rem 0 2rem;"></div>
     <div id="cart-items-container"></div>
     <div id="cart-summary-container"></div>
   </div>
@@ -289,17 +352,17 @@ footer { background: var(--text-dark); color: var(--cream-dark); text-align: cen
 
 <div id="page-checkout" class="page">
   <div class="checkout-page">
-    <p class="section-eyebrow" style="margin-bottom: 0.5rem;">Almost there</p>
+    <p class="section-eyebrow" style="margin-bottom:0.5rem;">Almost there</p>
     <h2>Checkout</h2>
-    <div class="section-line" style="margin: 1rem 0 2rem;"></div>
+    <div class="section-line" style="margin:1rem 0 2rem;"></div>
     <div id="checkout-order-summary" class="order-summary"></div>
-    <div style="margin-bottom: 1.5rem;">
-      <p class="section-eyebrow" style="margin-bottom: 1rem;">How would you like to order?</p>
+    <div style="margin-bottom:1.5rem;">
+      <p class="section-eyebrow" style="margin-bottom:1rem;">How would you like to order?</p>
       <div class="checkout-options">
         <div class="checkout-option selected" id="opt-contact" onclick="selectCheckout('contact')">
           <span class="checkout-option-icon">✉️</span>
           <div class="checkout-option-title">Message Me</div>
-          <div class="checkout-option-desc">Send me your order and I'll get back to you with payment details!</div>
+          <div class="checkout-option-desc">Send your order and I'll get back to you with payment details!</div>
         </div>
         <div class="checkout-option" id="opt-form" onclick="selectCheckout('form')">
           <span class="checkout-option-icon">📋</span>
@@ -313,9 +376,9 @@ footer { background: var(--text-dark); color: var(--cream-dark); text-align: cen
         <div class="form-group"><label>Your Name</label><input type="text" placeholder="First & Last Name" id="co-name"></div>
         <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" id="co-email"></div>
       </div>
-      <div class="form-group"><label>Message (optional)</label><textarea placeholder="Any special requests?" id="co-message" style="height: 90px;"></textarea></div>
+      <div class="form-group"><label>Message (optional)</label><textarea placeholder="Any special requests?" id="co-message" style="height:90px;"></textarea></div>
       <button class="submit-btn" onclick="placeOrder()">Place Order</button>
-      <p style="text-align: center; font-size: 12px; color: var(--text-light); margin-top: 1rem;">I'll get back to you within 1-2 days with payment info!</p>
+      <p style="text-align:center; font-size:12px; color:var(--text-light); margin-top:1rem;">I'll get back to you within 1-2 days with payment info!</p>
     </div>
     <div class="checkout-form" id="checkout-detail-form">
       <div class="form-row">
@@ -328,9 +391,9 @@ footer { background: var(--text-dark); color: var(--cream-dark); text-align: cen
         <div class="form-group"><label>City</label><input type="text" placeholder="City" id="cd-city"></div>
         <div class="form-group"><label>ZIP Code</label><input type="text" placeholder="ZIP" id="cd-zip"></div>
       </div>
-      <div class="form-group"><label>Notes (optional)</label><textarea placeholder="Any special requests?" id="cd-notes" style="height: 80px;"></textarea></div>
+      <div class="form-group"><label>Notes (optional)</label><textarea placeholder="Any special requests?" id="cd-notes" style="height:80px;"></textarea></div>
       <button class="submit-btn" onclick="placeOrder()">Submit Order</button>
-      <p style="text-align: center; font-size: 12px; color: var(--text-light); margin-top: 1rem;">I'll confirm your order and send payment details within 1-2 days!</p>
+      <p style="text-align:center; font-size:12px; color:var(--text-light); margin-top:1rem;">I'll confirm your order and send payment details within 1-2 days!</p>
     </div>
   </div>
   <footer>
@@ -348,10 +411,7 @@ footer { background: var(--text-dark); color: var(--cream-dark); text-align: cen
     <div class="modal-collection" id="m-collection"></div>
     <div class="modal-desc" id="m-desc"></div>
     <div class="modal-price" id="m-price"></div>
-    <div class="modal-btns">
-      <button class="btn-outline" onclick="addToCartFromModal()">Add to Cart</button>
-      <button class="btn-primary" onclick="buyNowFromModal()">Buy Now</button>
-    </div>
+    <div class="modal-btns" id="m-btns"></div>
   </div>
 </div>
 
@@ -376,6 +436,9 @@ footer { background: var(--text-dark); color: var(--cream-dark); text-align: cen
 <div class="toast" id="toast"></div>
 
 <script>
+const ADMIN_USERNAME = 'onetworobinsonr22';
+const ADMIN_PASSWORD = 'hdhdjdj';
+
 const products = [
   { id:1, name:'Blood Moon Bracelet', collection:'Cosmos', price:13, icon:'🔴', desc:'A bold, chunky red bead bracelet with a mysterious purple moon charm. Perfect for those who carry the night with them.', badge:'New', bgColor:'var(--cosmos-light)', textColor:'var(--cosmos)' },
   { id:2, name:'Little Peep Studs', collection:'Kawaii', price:7, icon:'🐥', desc:'Adorable little chick stud earrings, handcrafted and full of charm. Guaranteed to make you smile every time.', badge:'', bgColor:'var(--kawaii-light)', textColor:'var(--kawaii)' },
@@ -383,20 +446,104 @@ const products = [
   { id:4, name:'Kaleidoscope Disc Earrings', collection:'Electric', price:9, icon:'🌈', desc:'Stunning rainbow swirl disc earrings that catch every eye. Vibrant, artistic, and completely one of a kind.', badge:'New', bgColor:'var(--electric-light)', textColor:'var(--electric)' },
   { id:5, name:'Bubblegum Drop Earrings', collection:'Electric', price:9, icon:'💗', desc:'Bold hot pink ball drop earrings with a delicate pearl finish. Fun, fearless, and totally unforgettable.', badge:'', bgColor:'var(--electric-light)', textColor:'var(--electric)' },
 ];
+
 let cart = [];
+let soldOut = {};
+let currentUser = null;
+let customers = {};
 let currentModalProduct = null;
 let checkoutMode = 'contact';
+
+function isAdmin() { return currentUser && currentUser.isAdmin; }
+
+function updateNavUserArea() {
+  const area = document.getElementById('nav-user-area');
+  if (!currentUser) {
+    area.innerHTML = `<button class="login-btn" onclick="showPage('login')">Log In</button>`;
+  } else if (currentUser.isAdmin) {
+    area.innerHTML = `<span class="user-greeting"><span class="admin-badge">Admin</span> Hi, Phoenix! <span class="logout-link" onclick="doLogout()">Log out</span></span>`;
+  } else {
+    area.innerHTML = `<span class="user-greeting">Hi, ${currentUser.name}! <span class="logout-link" onclick="doLogout()">Log out</span></span>`;
+  }
+}
+
+function updateHeroBanner() {
+  const banner = document.getElementById('welcome-banner-hero');
+  if (currentUser && !currentUser.isAdmin) {
+    banner.innerHTML = `<div class="welcome-banner" style="max-width:500px;margin:0 auto 2rem;"><p>Welcome back, ${currentUser.name}! So lovely to see you again. ✨</p></div>`;
+  } else {
+    banner.innerHTML = '';
+  }
+}
 
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   window.scrollTo(0,0);
   if (name === 'cart') renderCart();
+  if (name === 'main') updateHeroBanner();
 }
+
 function goto(id) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
+
+function switchLoginTab(tab) {
+  document.querySelectorAll('.login-tab').forEach((t,i) => {
+    t.classList.toggle('active', (tab==='signin'&&i===0)||(tab==='signup'&&i===1));
+  });
+  document.getElementById('form-signin').classList.toggle('active', tab==='signin');
+  document.getElementById('form-signup').classList.toggle('active', tab==='signup');
+}
+
+function doSignIn() {
+  const u = document.getElementById('si-username').value.trim();
+  const p = document.getElementById('si-password').value;
+  const err = document.getElementById('si-error');
+  if (u === ADMIN_USERNAME && p === ADMIN_PASSWORD) {
+    currentUser = { name: 'Phoenix', isAdmin: true };
+    updateNavUserArea();
+    showPage('main');
+    updateHeroBanner();
+    renderProducts(document.querySelector('.filter-btn.active')?.id?.replace('filter-','') || 'All');
+    showToast('Welcome back, Phoenix! 👑');
+  } else if (customers[u] && customers[u].password === p) {
+    currentUser = { name: customers[u].name, username: u, isAdmin: false };
+    updateNavUserArea();
+    showPage('main');
+    updateHeroBanner();
+    showToast('Welcome back, ' + currentUser.name + '! ✨');
+  } else {
+    err.classList.add('show');
+  }
+}
+
+function doSignUp() {
+  const name = document.getElementById('su-name').value.trim();
+  const u = document.getElementById('su-username').value.trim();
+  const p = document.getElementById('su-password').value;
+  const c = document.getElementById('su-confirm').value;
+  const err = document.getElementById('su-error');
+  if (!name || !u || !p) { err.textContent = 'Please fill in all fields.'; err.classList.add('show'); return; }
+  if (p !== c) { err.textContent = 'Passwords do not match.'; err.classList.add('show'); return; }
+  if (customers[u] || u === ADMIN_USERNAME) { err.textContent = 'That username is already taken.'; err.classList.add('show'); return; }
+  customers[u] = { name, password: p };
+  currentUser = { name, username: u, isAdmin: false };
+  updateNavUserArea();
+  showPage('main');
+  updateHeroBanner();
+  showToast('Account created! Welcome, ' + name + '! 🌸');
+}
+
+function doLogout() {
+  currentUser = null;
+  updateNavUserArea();
+  updateHeroBanner();
+  renderProducts(document.querySelector('.filter-btn.active')?.id?.replace('filter-','') || 'All');
+  showToast('Logged out. See you soon! ✨');
+}
+
 function renderProducts(filter) {
   const grid = document.getElementById('products-grid');
   grid.innerHTML = '';
@@ -406,44 +553,64 @@ function renderProducts(filter) {
     return;
   }
   filtered.forEach(p => {
+    const isSold = !!soldOut[p.id];
     const div = document.createElement('div');
-    div.className = 'product-card';
+    div.className = 'product-card' + (isSold ? ' sold-out' : '');
     div.dataset.collection = p.collection;
     div.innerHTML = `
       <div class="product-img" style="background:${p.bgColor}; cursor:pointer;" onclick="openModal(${p.id})">
         <span style="font-size:56px;">${p.icon}</span>
-        ${p.badge ? `<span class="product-badge" style="background:${p.textColor};">${p.badge}</span>` : ''}
+        ${p.badge && !isSold ? `<span class="product-badge" style="background:${p.textColor};">${p.badge}</span>` : ''}
+        ${isSold ? `<div class="sold-out-overlay"><div class="sold-out-stamp">Sold Out</div></div>` : ''}
       </div>
       <div class="product-info">
         <div class="product-name" style="cursor:pointer;" onclick="openModal(${p.id})">${p.name}</div>
         <div class="product-collection" style="color:${p.textColor};">${p.collection} Collection</div>
-        <div class="product-price">$${p.price}</div>
+        <div class="product-price">${isSold ? '<span style="color:var(--text-light);font-size:13px;letter-spacing:0.1em;text-transform:uppercase;">Sold Out</span>' : '$' + p.price}</div>
         <div class="product-actions">
-          <button class="add-cart-btn" onclick="addToCart(${p.id})">+ Cart</button>
-          <button class="buy-btn" onclick="buyNow(${p.id})">Buy Now</button>
+          ${isSold
+            ? `<button class="sold-out-btn" disabled>Sold Out</button>`
+            : `<button class="add-cart-btn" onclick="addToCart(${p.id})">+ Cart</button><button class="buy-btn" onclick="buyNow(${p.id})">Buy Now</button>`
+          }
         </div>
+        ${isAdmin() ? `<button class="admin-toggle-btn" onclick="toggleSoldOut(${p.id})">${isSold ? '✓ Mark as Available' : '✗ Mark as Sold Out'}</button>` : ''}
       </div>`;
     grid.appendChild(div);
   });
 }
+
+function toggleSoldOut(id) {
+  soldOut[id] = !soldOut[id];
+  renderProducts(document.querySelector('.filter-btn.active')?.id?.replace('filter-','') || 'All');
+  showToast(soldOut[id] ? 'Marked as sold out!' : 'Marked as available!');
+}
+
 function filterShop(type) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   const btn = document.getElementById('filter-' + type);
   if (btn) btn.classList.add('active');
   renderProducts(type);
 }
+
 function openModal(id) {
   const p = products.find(x => x.id === id);
+  const isSold = !!soldOut[p.id];
   currentModalProduct = p;
   document.getElementById('m-icon').textContent = p.icon;
   document.getElementById('m-name').textContent = p.name;
   document.getElementById('m-collection').textContent = p.collection + ' Collection';
   document.getElementById('m-collection').style.color = p.textColor;
   document.getElementById('m-desc').textContent = p.desc;
-  document.getElementById('m-price').textContent = '$' + p.price;
+  document.getElementById('m-price').textContent = isSold ? 'Sold Out' : '$' + p.price;
+  document.getElementById('m-price').style.color = isSold ? 'var(--text-light)' : 'var(--rose)';
+  document.getElementById('m-btns').innerHTML = isSold
+    ? `<button class="sold-out-btn" style="flex:1;padding:14px 40px;" disabled>Sold Out</button>`
+    : `<button class="btn-outline" onclick="addToCartFromModal()">Add to Cart</button><button class="btn-primary" onclick="buyNowFromModal()">Buy Now</button>`;
   document.getElementById('product-modal').classList.add('open');
 }
+
 function addToCart(id) {
+  if (soldOut[id]) return;
   const p = products.find(x => x.id === id);
   const existing = cart.find(c => c.id === id);
   if (existing) existing.qty++;
@@ -451,21 +618,26 @@ function addToCart(id) {
   updateCartCount();
   showToast(p.name + ' added to cart!');
 }
+
 function addToCartFromModal() {
   if (currentModalProduct) { addToCart(currentModalProduct.id); closeAllModals(); }
 }
+
 function buyNow(id) {
+  if (soldOut[id]) return;
   addToCart(id);
   showPage('checkout');
   renderCheckout();
 }
+
 function buyNowFromModal() {
   if (currentModalProduct) { addToCart(currentModalProduct.id); closeAllModals(); showPage('checkout'); renderCheckout(); }
 }
+
 function updateCartCount() {
-  const total = cart.reduce((s, c) => s + c.qty, 0);
-  document.getElementById('cart-count').textContent = total;
+  document.getElementById('cart-count').textContent = cart.reduce((s,c) => s + c.qty, 0);
 }
+
 function renderCart() {
   const container = document.getElementById('cart-items-container');
   const summary = document.getElementById('cart-summary-container');
@@ -489,7 +661,7 @@ function renderCart() {
       <div class="cart-item-price">$${item.price * item.qty}</div>
       <button class="cart-item-remove" onclick="removeFromCart(${item.id})">x</button>
     </div>`).join('');
-  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const total = cart.reduce((s,c) => s + c.price * c.qty, 0);
   summary.innerHTML = `
     <div class="cart-summary">
       <div class="cart-total-row">
@@ -502,31 +674,41 @@ function renderCart() {
       </div>
     </div>`;
 }
+
 function changeQty(id, delta) {
   const item = cart.find(c => c.id === id);
   if (item) { item.qty += delta; if (item.qty <= 0) cart = cart.filter(c => c.id !== id); }
   updateCartCount(); renderCart();
 }
+
 function removeFromCart(id) {
   cart = cart.filter(c => c.id !== id);
   updateCartCount(); renderCart();
 }
+
 function renderCheckout() {
-  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const total = cart.reduce((s,c) => s + c.price * c.qty, 0);
   const lines = cart.map(c => `<div class="order-line"><span>${c.name} x${c.qty}</span><span>$${c.price * c.qty}</span></div>`).join('');
   document.getElementById('checkout-order-summary').innerHTML = `<div class="order-summary-title">Your Order</div>${lines}<div class="order-total"><span>Total</span><span>$${total}</span></div>`;
+  if (currentUser && !currentUser.isAdmin) {
+    document.getElementById('co-name').value = currentUser.name || '';
+    document.getElementById('cd-first').value = currentUser.name || '';
+  }
 }
+
 function selectCheckout(mode) {
   checkoutMode = mode;
-  document.getElementById('opt-contact').classList.toggle('selected', mode === 'contact');
-  document.getElementById('opt-form').classList.toggle('selected', mode === 'form');
-  document.getElementById('checkout-contact-form').classList.toggle('active', mode === 'contact');
-  document.getElementById('checkout-detail-form').classList.toggle('active', mode === 'form');
+  document.getElementById('opt-contact').classList.toggle('selected', mode==='contact');
+  document.getElementById('opt-form').classList.toggle('selected', mode==='form');
+  document.getElementById('checkout-contact-form').classList.toggle('active', mode==='contact');
+  document.getElementById('checkout-detail-form').classList.toggle('active', mode==='form');
 }
+
 function placeOrder() {
   cart = []; updateCartCount(); closeAllModals();
   document.getElementById('success-modal').classList.add('open');
 }
+
 function submitForm() {
   const name = document.getElementById('f-name').value.trim();
   const email = document.getElementById('f-email').value.trim();
@@ -537,17 +719,22 @@ function submitForm() {
   document.getElementById('f-message').value = '';
   document.getElementById('msg-success-modal').classList.add('open');
 }
+
 function closeAllModals() {
   document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
 }
+
 function closeModal(e) {
   if (e.target.classList.contains('modal-overlay')) closeAllModals();
 }
+
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
+
+updateNavUserArea();
 renderProducts('All');
 </script>
 </body>
