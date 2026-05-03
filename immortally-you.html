@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Immortally You</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --rose: #c9836a; --rose-light: #e8c4b4; --rose-pale: #f7ede6;
+  --cream: #fdf6ef; --cream-dark: #f0e4d4;
+  --gold: #b8956a; --gold-light: #d4b896;
+  --text-dark: #3a2a1e; --text-mid: #7a5c45; --text-light: #a68570;
+  --cosmos: #534AB7; --cosmos-light: #EEEDFE;
+  --kawaii: #D4537E; --kawaii-light: #FBEAF0;
+  --electric: #BA7517; --electric-light: #FAEEDA;
+  --seaside: #0F6E56; --seaside-light: #E1F5EE;
+}
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text-dark); }
+nav {
+  background: var(--cream); border-bottom: 1px solid var(--cream-dark);
+  padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+  height: 64px; position: sticky; top: 0; z-index: 100;
+}
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; letter-spacing: 0.12em; color: var(--text-dark); text-transform: uppercase; cursor: pointer; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+.nav-links a { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+.nav-links a:hover { color: var(--rose); }
+.cart-btn { position: relative; background: none; border: 1px solid var(--rose); padding: 8px 16px; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); transition: all 0.2s; }
+.cart-btn:hover { background: var(--rose); color: var(--cream); }
+.cart-count { position: absolute; top: -8px; right: -8px; background: var(--rose); color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+.page { display: none; }
+.page.active { display: block; }
+.hero { background: var(--rose-pale); padding: 6rem 2rem; text-align: center; }
+.hero-eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.2rem; }
+.hero-title { font-family: 'Cormorant Garamond', serif; font-size: 58px; font-weight: 300; line-height: 1.1; color: var(--text-dark); letter-spacing: 0.05em; margin-bottom: 1rem; }
+.hero-title em { font-style: italic; color: var(--rose); }
+.hero-motto { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; font-weight: 300; color: var(--text-mid); margin-bottom: 2rem; }
+.hero-divider { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2.5rem; }
+.hero-divider span { width: 60px; height: 1px; background: var(--gold-light); }
+.hero-divider i { font-style: normal; color: var(--gold); font-size: 14px; }
+.btn-primary { display: inline-block; padding: 14px 40px; background: var(--rose); color: #fdf6ef; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s; }
+.btn-primary:hover { background: var(--text-mid); }
+.btn-outline { display: inline-block; padding: 14px 40px; border: 1px solid var(--rose); color: var(--rose); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; background: transparent; cursor: pointer; transition: all 0.2s; margin-left: 1rem; }
+.btn-outline:hover { background: var(--rose); color: var(--cream); }
+.section { padding: 5rem 2rem; }
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-eyebrow { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.8rem; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; color: var(--text-dark); letter-spacing: 0.05em; }
+.section-line { width: 48px; height: 1px; background: var(--gold-light); margin: 1rem auto 0; }
+.collections-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 900px; margin: 0 auto; }
+.collection-card { padding: 2rem 1rem; text-align: center; cursor: pointer; border: 1px solid var(--cream-dark); background: var(--cream); transition: all 0.25s; }
+.collection-card:hover { transform: translateY(-3px); }
+.collection-icon { font-size: 28px; margin-bottom: 0.8rem; display: block; }
+.collection-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--text-dark); margin-bottom: 4px; }
+.collection-count { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); }
+.collection-tag { display: inline-block; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 10px; margin-top: 8px; }
+.shop-bg { background: var(--cream-dark); }
+.shop-filters { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.filter-btn { padding: 8px 18px; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--cream-dark); background: var(--cream); color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
+.filter-btn.active, .filter-btn:hover { background: var(--rose); color: var(--cream); border-color: var(--rose); }
+.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+.product-card { background: var(--cream); cursor: pointer; transition: transform 0.2s; border: 1px solid var(--cream-dark); }
+.product-card:hover { transform: translateY(-3px); }
+.product-img { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 56px; position: relative; }
+.product-badge { position: absolute; top: 10px; left: 10px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; color: white; }
+.product-info { padding: 1rem 1.25rem; border-top: 1px solid var(--cream-dark); }
+.product-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--text-dark); margin-bottom: 4px; }
+.product-collection { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+.product-price { font-size: 15px; color: var(--rose); font-weight: 500; margin-bottom: 12px; }
+.product-actions { display: flex; gap: 8px; }
+.add-cart-btn { flex: 1; padding: 8px; background: transparent; border: 1px solid var(--rose); color: var(--rose); font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+.add-cart-btn:hover { background: var(--rose); color: var(--cream); }
+.buy-btn { flex: 1; padding: 8px; background: var(--rose); border: 1px solid var(--rose); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+.buy-btn:hover { background: var(--text-mid); border-color: var(--text-mid); }
+.about-inner { max-width: 600px; text-align: center; margin: 0 auto; }
+.about-inner p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; font-style: italic; line-height: 1.8; color: var(--text-mid); margin-bottom: 1.5rem; }
+.about-sig { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); }
+.contact-bg { background: var(--rose-pale); }
+.contact-inner { max-width: 560px; margin: 0 auto; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 6px; }
+.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; background: var(--cream); border: 1px solid var(--cream-dark); font-family: 'Jost', sans-serif; font-size: 14px; color: var(--text-dark); outline: none; transition: border-color 0.2s; resize: none; }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--rose); }
+.form-group textarea { height: 120px; }
+.submit-btn { display: block; width: 100%; padding: 14px; background: var(--rose); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s; margin-top: 1.5rem; }
+.submit-btn:hover { background: var(--text-mid); }
+.cart-page { max-width: 700px; margin: 0 auto; padding: 4rem 2rem; min-height: 60vh; }
+.cart-page h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; margin-bottom: 0.5rem; }
+.cart-empty { text-align: center; padding: 4rem 2rem; color: var(--text-light); }
+.cart-empty p { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; margin-bottom: 1.5rem; }
+.cart-item { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--cream-dark); }
+.cart-item-icon { font-size: 36px; width: 60px; height: 60px; background: var(--rose-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cart-item-info { flex: 1; }
+.cart-item-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--text-dark); }
+.cart-item-collection { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-top: 2px; }
+.cart-item-price { font-size: 16px; color: var(--rose); font-weight: 500; }
+.cart-item-remove { background: none; border: none; color: var(--text-light); cursor: pointer; font-size: 18px; padding: 4px 8px; transition: color 0.2s; }
+.cart-item-remove:hover { color: var(--rose); }
+.cart-qty { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.qty-btn { width: 24px; height: 24px; border: 1px solid var(--cream-dark); background: var(--cream); cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; color: var(--text-mid); }
+.qty-btn:hover { border-color: var(--rose); color: var(--rose); }
+.qty-num { font-size: 14px; min-width: 20px; text-align: center; }
+.cart-summary { margin-top: 2rem; padding: 1.5rem; background: var(--rose-pale); }
+.cart-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.cart-total-label { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-mid); }
+.cart-total-amount { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--text-dark); }
+.cart-actions { display: flex; gap: 1rem; }
+.cart-actions button { flex: 1; }
+.checkout-page { max-width: 700px; margin: 0 auto; padding: 4rem 2rem; min-height: 60vh; }
+.checkout-page h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; margin-bottom: 2rem; }
+.checkout-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.checkout-option { border: 1px solid var(--cream-dark); padding: 2rem; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--cream); }
+.checkout-option:hover { border-color: var(--rose); }
+.checkout-option.selected { border-color: var(--rose); border-width: 2px; }
+.checkout-option-icon { font-size: 32px; margin-bottom: 1rem; display: block; }
+.checkout-option-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; margin-bottom: 0.5rem; }
+.checkout-option-desc { font-size: 12px; color: var(--text-light); line-height: 1.6; }
+.order-summary { background: var(--rose-pale); padding: 1.5rem; margin-bottom: 1.5rem; }
+.order-summary-title { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 1rem; }
+.order-line { display: flex; justify-content: space-between; font-size: 14px; padding: 6px 0; border-bottom: 1px solid var(--cream-dark); color: var(--text-mid); }
+.order-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 500; padding-top: 12px; color: var(--text-dark); }
+.checkout-form { display: none; }
+.checkout-form.active { display: block; }
+footer { background: var(--text-dark); color: var(--cream-dark); text-align: center; padding: 3rem 2rem; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--rose-light); }
+.footer-motto { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: var(--text-light); margin-bottom: 1rem; }
+.footer-text { font-size: 11px; letter-spacing: 0.1em; color: var(--text-light); }
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(58,42,30,0.6); z-index: 200; align-items: center; justify-content: center; padding: 2rem; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--cream); max-width: 420px; width: 100%; padding: 2.5rem; text-align: center; position: relative; }
+.modal-close { position: absolute; top: 1rem; right: 1.25rem; font-size: 20px; cursor: pointer; color: var(--text-light); background: none; border: none; }
+.modal-icon { font-size: 48px; margin-bottom: 1rem; }
+.modal-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--text-dark); margin-bottom: 6px; }
+.modal-collection { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
+.modal-desc { font-size: 13px; color: var(--text-mid); line-height: 1.7; margin-bottom: 1rem; }
+.modal-price { font-size: 22px; color: var(--rose); font-weight: 500; margin-bottom: 1.5rem; }
+.modal-btns { display: flex; gap: 1rem; }
+.modal-btns button { flex: 1; }
+.toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--text-dark); color: var(--cream); padding: 1rem 1.5rem; font-size: 13px; letter-spacing: 0.05em; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; z-index: 999; }
+.toast.show { opacity: 1; transform: translateY(0); }
+@media (max-width: 600px) {
+  .hero-title { font-size: 36px; }
+  .collections-grid, .checkout-options { grid-template-columns: 1fr 1fr; }
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .cart-actions { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="showPage('main')">Immortally You</div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('main'); goto('home')">Home</a></li>
+    <li><a onclick="showPage('main'); goto('collections')">Collections</a></li>
+    <li><a onclick="showPage('main'); goto('shop')">Shop</a></li>
+    <li><a onclick="showPage('main'); goto('about')">About</a></li>
+    <li><a onclick="showPage('main'); goto('contact')">Contact</a></li>
+    <li><button class="cart-btn" onclick="showPage('cart'); renderCart();">Cart <span class="cart-count" id="cart-count">0</span></button></li>
+  </ul>
+</nav>
+
+<div id="page-main" class="page active">
+  <section id="home">
+    <div class="hero">
+      <p class="hero-eyebrow">Handcrafted with love</p>
+      <h1 class="hero-title">Immortally <em>You</em></h1>
+      <p class="hero-motto">"Your story is one of a kind. So is every piece."</p>
+      <div class="hero-divider"><span></span><i>✦</i><span></span></div>
+      <button class="btn-primary" onclick="goto('shop')">Shop Now</button>
+      <button class="btn-outline" onclick="goto('contact')">Get in Touch</button>
+    </div>
+  </section>
+
+  <section id="collections" class="section" style="background: var(--cream);">
+    <div class="section-header">
+      <p class="section-eyebrow">Shop by collection</p>
+      <h2 class="section-title">Our Collections</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="collections-grid">
+      <div class="collection-card" onclick="filterShop('Cosmos'); goto('shop');" style="border-top: 3px solid var(--cosmos);">
+        <span class="collection-icon">🌌</span>
+        <div class="collection-name">Cosmos</div>
+        <div class="collection-count">1 piece</div>
+        <span class="collection-tag" style="background: var(--cosmos-light); color: var(--cosmos);">Celestial</span>
+      </div>
+      <div class="collection-card" onclick="filterShop('Kawaii'); goto('shop');" style="border-top: 3px solid var(--kawaii);">
+        <span class="collection-icon">🐰</span>
+        <div class="collection-name">Kawaii</div>
+        <div class="collection-count">2 pieces</div>
+        <span class="collection-tag" style="background: var(--kawaii-light); color: var(--kawaii);">Whimsical</span>
+      </div>
+      <div class="collection-card" onclick="filterShop('Electric'); goto('shop');" style="border-top: 3px solid var(--electric);">
+        <span class="collection-icon">⚡</span>
+        <div class="collection-name">Electric</div>
+        <div class="collection-count">2 pieces</div>
+        <span class="collection-tag" style="background: var(--electric-light); color: var(--electric);">Vibrant</span>
+      </div>
+      <div class="collection-card" onclick="filterShop('Seaside'); goto('shop');" style="border-top: 3px solid var(--seaside);">
+        <span class="collection-icon">🌊</span>
+        <div class="collection-name">Seaside</div>
+        <div class="collection-count">Coming soon</div>
+        <span class="collection-tag" style="background: var(--seaside-light); color: var(--seaside);">Ocean</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="shop" class="section shop-bg">
+    <div class="section-header">
+      <p class="section-eyebrow">Handmade just for you</p>
+      <h2 class="section-title">The Collection</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="shop-filters">
+      <button class="filter-btn active" id="filter-All" onclick="filterShop('All')">All</button>
+      <button class="filter-btn" id="filter-Cosmos" onclick="filterShop('Cosmos')">Cosmos</button>
+      <button class="filter-btn" id="filter-Kawaii" onclick="filterShop('Kawaii')">Kawaii</button>
+      <button class="filter-btn" id="filter-Electric" onclick="filterShop('Electric')">Electric</button>
+      <button class="filter-btn" id="filter-Seaside" onclick="filterShop('Seaside')">Seaside</button>
+    </div>
+    <div class="products-grid" id="products-grid"></div>
+  </section>
+
+  <section id="about" class="section" style="background: var(--cream);">
+    <div class="about-inner">
+      <p class="section-eyebrow" style="margin-bottom: 1rem;">Our story</p>
+      <h2 class="section-title" style="margin-bottom: 2rem;">Made with Heart</h2>
+      <p>"Every piece I make is a little piece of me — crafted with care, creativity, and the hope that it brings a smile to whoever wears it."</p>
+      <div class="section-line" style="margin-bottom: 1.5rem;"></div>
+      <div class="about-sig">Phoenix · Founder, Immortally You</div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact-bg">
+    <div class="section-header">
+      <p class="section-eyebrow">Say hello</p>
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-inner">
+      <div class="form-row">
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="First & Last Name" id="f-name"></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" id="f-email"></div>
+      </div>
+      <div class="form-group">
+        <label>I'm interested in...</label>
+        <select id="f-interest">
+          <option value="">Select a collection</option>
+          <option>Cosmos Collection</option>
+          <option>Kawaii Collection</option>
+          <option>Electric Collection</option>
+          <option>Seaside Collection</option>
+          <option>Custom Order</option>
+          <option>General Question</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Tell me what you're looking for, or just say hi!" id="f-message"></textarea></div>
+      <button class="submit-btn" onclick="submitForm()">Send Message</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Immortally You</div>
+    <div class="footer-motto">"Your story is one of a kind. So is every piece."</div>
+    <p class="footer-text">Handcrafted jewelry made with love · Phoenix · 2025</p>
+  </footer>
+</div>
+
+<div id="page-cart" class="page">
+  <div class="cart-page">
+    <p class="section-eyebrow" style="margin-bottom: 0.5rem;">Your selections</p>
+    <h2>Shopping Cart</h2>
+    <div class="section-line" style="margin: 1rem 0 2rem;"></div>
+    <div id="cart-items-container"></div>
+    <div id="cart-summary-container"></div>
+  </div>
+  <footer>
+    <div class="footer-logo">Immortally You</div>
+    <div class="footer-motto">"Your story is one of a kind. So is every piece."</div>
+    <p class="footer-text">Handcrafted jewelry made with love · Phoenix · 2025</p>
+  </footer>
+</div>
+
+<div id="page-checkout" class="page">
+  <div class="checkout-page">
+    <p class="section-eyebrow" style="margin-bottom: 0.5rem;">Almost there</p>
+    <h2>Checkout</h2>
+    <div class="section-line" style="margin: 1rem 0 2rem;"></div>
+    <div id="checkout-order-summary" class="order-summary"></div>
+    <div style="margin-bottom: 1.5rem;">
+      <p class="section-eyebrow" style="margin-bottom: 1rem;">How would you like to order?</p>
+      <div class="checkout-options">
+        <div class="checkout-option selected" id="opt-contact" onclick="selectCheckout('contact')">
+          <span class="checkout-option-icon">✉️</span>
+          <div class="checkout-option-title">Message Me</div>
+          <div class="checkout-option-desc">Send me your order and I'll get back to you with payment details!</div>
+        </div>
+        <div class="checkout-option" id="opt-form" onclick="selectCheckout('form')">
+          <span class="checkout-option-icon">📋</span>
+          <div class="checkout-option-title">Fill Out a Form</div>
+          <div class="checkout-option-desc">Fill in your details and I'll confirm your order and reach out with next steps.</div>
+        </div>
+      </div>
+    </div>
+    <div class="checkout-form active" id="checkout-contact-form">
+      <div class="form-row">
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="First & Last Name" id="co-name"></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" id="co-email"></div>
+      </div>
+      <div class="form-group"><label>Message (optional)</label><textarea placeholder="Any special requests?" id="co-message" style="height: 90px;"></textarea></div>
+      <button class="submit-btn" onclick="placeOrder()">Place Order</button>
+      <p style="text-align: center; font-size: 12px; color: var(--text-light); margin-top: 1rem;">I'll get back to you within 1-2 days with payment info!</p>
+    </div>
+    <div class="checkout-form" id="checkout-detail-form">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="First Name" id="cd-first"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Last Name" id="cd-last"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" id="cd-email"></div>
+      <div class="form-group"><label>Shipping Address</label><input type="text" placeholder="Street address" id="cd-address"></div>
+      <div class="form-row">
+        <div class="form-group"><label>City</label><input type="text" placeholder="City" id="cd-city"></div>
+        <div class="form-group"><label>ZIP Code</label><input type="text" placeholder="ZIP" id="cd-zip"></div>
+      </div>
+      <div class="form-group"><label>Notes (optional)</label><textarea placeholder="Any special requests?" id="cd-notes" style="height: 80px;"></textarea></div>
+      <button class="submit-btn" onclick="placeOrder()">Submit Order</button>
+      <p style="text-align: center; font-size: 12px; color: var(--text-light); margin-top: 1rem;">I'll confirm your order and send payment details within 1-2 days!</p>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">Immortally You</div>
+    <div class="footer-motto">"Your story is one of a kind. So is every piece."</div>
+    <p class="footer-text">Handcrafted jewelry made with love · Phoenix · 2025</p>
+  </footer>
+</div>
+
+<div class="modal-overlay" id="product-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAllModals()">x</button>
+    <div class="modal-icon" id="m-icon"></div>
+    <div class="modal-title" id="m-name"></div>
+    <div class="modal-collection" id="m-collection"></div>
+    <div class="modal-desc" id="m-desc"></div>
+    <div class="modal-price" id="m-price"></div>
+    <div class="modal-btns">
+      <button class="btn-outline" onclick="addToCartFromModal()">Add to Cart</button>
+      <button class="btn-primary" onclick="buyNowFromModal()">Buy Now</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="success-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAllModals()">x</button>
+    <div class="modal-icon">✦</div>
+    <div class="modal-title">Order Received!</div>
+    <div class="modal-desc" style="margin-bottom:0;">Thank you so much! I'll get back to you within 1-2 days with payment info. You're going to love your piece! ✨</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="msg-success-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAllModals()">x</button>
+    <div class="modal-icon">✦</div>
+    <div class="modal-title">Message Sent!</div>
+    <div class="modal-desc" style="margin-bottom:0;">Thank you for reaching out! I'll get back to you as soon as I can. Keep shining! ✨</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const products = [
+  { id:1, name:'Blood Moon Bracelet', collection:'Cosmos', price:13, icon:'🔴', desc:'A bold, chunky red bead bracelet with a mysterious purple moon charm. Perfect for those who carry the night with them.', badge:'New', bgColor:'var(--cosmos-light)', textColor:'var(--cosmos)' },
+  { id:2, name:'Little Peep Studs', collection:'Kawaii', price:7, icon:'🐥', desc:'Adorable little chick stud earrings, handcrafted and full of charm. Guaranteed to make you smile every time.', badge:'', bgColor:'var(--kawaii-light)', textColor:'var(--kawaii)' },
+  { id:3, name:'Cotton Tail Studs', collection:'Kawaii', price:7, icon:'🐰', desc:'Sweet little bunny stud earrings with the most precious faces. A must-have for anyone who loves cute things.', badge:'Fan Fave', bgColor:'var(--kawaii-light)', textColor:'var(--kawaii)' },
+  { id:4, name:'Kaleidoscope Disc Earrings', collection:'Electric', price:9, icon:'🌈', desc:'Stunning rainbow swirl disc earrings that catch every eye. Vibrant, artistic, and completely one of a kind.', badge:'New', bgColor:'var(--electric-light)', textColor:'var(--electric)' },
+  { id:5, name:'Bubblegum Drop Earrings', collection:'Electric', price:9, icon:'💗', desc:'Bold hot pink ball drop earrings with a delicate pearl finish. Fun, fearless, and totally unforgettable.', badge:'', bgColor:'var(--electric-light)', textColor:'var(--electric)' },
+];
+let cart = [];
+let currentModalProduct = null;
+let checkoutMode = 'contact';
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0,0);
+  if (name === 'cart') renderCart();
+}
+function goto(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+function renderProducts(filter) {
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = '';
+  const filtered = filter === 'All' ? products : products.filter(p => p.collection === filter);
+  if (filter === 'Seaside' || filtered.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-light);font-family:Cormorant Garamond,serif;font-size:20px;font-style:italic;">Coming soon — ocean treasures on the way! 🌊</div>';
+    return;
+  }
+  filtered.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'product-card';
+    div.dataset.collection = p.collection;
+    div.innerHTML = `
+      <div class="product-img" style="background:${p.bgColor}; cursor:pointer;" onclick="openModal(${p.id})">
+        <span style="font-size:56px;">${p.icon}</span>
+        ${p.badge ? `<span class="product-badge" style="background:${p.textColor};">${p.badge}</span>` : ''}
+      </div>
+      <div class="product-info">
+        <div class="product-name" style="cursor:pointer;" onclick="openModal(${p.id})">${p.name}</div>
+        <div class="product-collection" style="color:${p.textColor};">${p.collection} Collection</div>
+        <div class="product-price">$${p.price}</div>
+        <div class="product-actions">
+          <button class="add-cart-btn" onclick="addToCart(${p.id})">+ Cart</button>
+          <button class="buy-btn" onclick="buyNow(${p.id})">Buy Now</button>
+        </div>
+      </div>`;
+    grid.appendChild(div);
+  });
+}
+function filterShop(type) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('filter-' + type);
+  if (btn) btn.classList.add('active');
+  renderProducts(type);
+}
+function openModal(id) {
+  const p = products.find(x => x.id === id);
+  currentModalProduct = p;
+  document.getElementById('m-icon').textContent = p.icon;
+  document.getElementById('m-name').textContent = p.name;
+  document.getElementById('m-collection').textContent = p.collection + ' Collection';
+  document.getElementById('m-collection').style.color = p.textColor;
+  document.getElementById('m-desc').textContent = p.desc;
+  document.getElementById('m-price').textContent = '$' + p.price;
+  document.getElementById('product-modal').classList.add('open');
+}
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  const existing = cart.find(c => c.id === id);
+  if (existing) existing.qty++;
+  else cart.push({ ...p, qty: 1 });
+  updateCartCount();
+  showToast(p.name + ' added to cart!');
+}
+function addToCartFromModal() {
+  if (currentModalProduct) { addToCart(currentModalProduct.id); closeAllModals(); }
+}
+function buyNow(id) {
+  addToCart(id);
+  showPage('checkout');
+  renderCheckout();
+}
+function buyNowFromModal() {
+  if (currentModalProduct) { addToCart(currentModalProduct.id); closeAllModals(); showPage('checkout'); renderCheckout(); }
+}
+function updateCartCount() {
+  const total = cart.reduce((s, c) => s + c.qty, 0);
+  document.getElementById('cart-count').textContent = total;
+}
+function renderCart() {
+  const container = document.getElementById('cart-items-container');
+  const summary = document.getElementById('cart-summary-container');
+  if (cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty"><p>Your cart is empty.</p><button class="btn-primary" onclick="showPage(\'main\'); goto(\'shop\');">Browse the Shop</button></div>';
+    summary.innerHTML = '';
+    return;
+  }
+  container.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-icon">${item.icon}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-collection">${item.collection} Collection</div>
+        <div class="cart-qty">
+          <button class="qty-btn" onclick="changeQty(${item.id},-1)">-</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+        </div>
+      </div>
+      <div class="cart-item-price">$${item.price * item.qty}</div>
+      <button class="cart-item-remove" onclick="removeFromCart(${item.id})">x</button>
+    </div>`).join('');
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  summary.innerHTML = `
+    <div class="cart-summary">
+      <div class="cart-total-row">
+        <span class="cart-total-label">Order Total</span>
+        <span class="cart-total-amount">$${total}</span>
+      </div>
+      <div class="cart-actions">
+        <button class="btn-outline" onclick="showPage('main'); goto('shop');">Keep Shopping</button>
+        <button class="btn-primary" onclick="showPage('checkout'); renderCheckout();">Checkout</button>
+      </div>
+    </div>`;
+}
+function changeQty(id, delta) {
+  const item = cart.find(c => c.id === id);
+  if (item) { item.qty += delta; if (item.qty <= 0) cart = cart.filter(c => c.id !== id); }
+  updateCartCount(); renderCart();
+}
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  updateCartCount(); renderCart();
+}
+function renderCheckout() {
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const lines = cart.map(c => `<div class="order-line"><span>${c.name} x${c.qty}</span><span>$${c.price * c.qty}</span></div>`).join('');
+  document.getElementById('checkout-order-summary').innerHTML = `<div class="order-summary-title">Your Order</div>${lines}<div class="order-total"><span>Total</span><span>$${total}</span></div>`;
+}
+function selectCheckout(mode) {
+  checkoutMode = mode;
+  document.getElementById('opt-contact').classList.toggle('selected', mode === 'contact');
+  document.getElementById('opt-form').classList.toggle('selected', mode === 'form');
+  document.getElementById('checkout-contact-form').classList.toggle('active', mode === 'contact');
+  document.getElementById('checkout-detail-form').classList.toggle('active', mode === 'form');
+}
+function placeOrder() {
+  cart = []; updateCartCount(); closeAllModals();
+  document.getElementById('success-modal').classList.add('open');
+}
+function submitForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  if (!name || !email) { alert('Please fill in your name and email!'); return; }
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-email').value = '';
+  document.getElementById('f-interest').value = '';
+  document.getElementById('f-message').value = '';
+  document.getElementById('msg-success-modal').classList.add('open');
+}
+function closeAllModals() {
+  document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+}
+function closeModal(e) {
+  if (e.target.classList.contains('modal-overlay')) closeAllModals();
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+renderProducts('All');
+</script>
+</body>
+</html>
